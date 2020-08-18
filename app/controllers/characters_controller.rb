@@ -5,31 +5,32 @@ class CharactersController < ApplicationController
   def index
     @characters = Character.all
 
-    render json: @characters
+    render jsonapi: @characters
   end
 
   # GET /characters/1
   def show
-    render json: @character
+    render jsonapi: @character
   end
 
   # POST /characters
   def create
+    logger.info "request: #{params.inspect}"
     @character = Character.new(character_params)
 
     if @character.save
-      render json: @character, status: :created, location: @character
+      render jsonapi: @character, status: :created, location: @character
     else
-      render json: @character.errors, status: :unprocessable_entity
+      render jsonapi: @character.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /characters/1
   def update
     if @character.update(character_params)
-      render json: @character
+      render jsonapi: @character
     else
-      render json: @character.errors, status: :unprocessable_entity
+      render jsonapi: @character.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +47,6 @@ class CharactersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def character_params
-      params.fetch(:character, {})
+      ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :fate_points, :refresh])
     end
 end

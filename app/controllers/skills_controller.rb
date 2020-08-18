@@ -5,12 +5,12 @@ class SkillsController < ApplicationController
   def index
     @skills = Skill.all
 
-    render json: @skills
+    render jsonapi: @skills
   end
 
   # GET /skills/1
   def show
-    render json: @skill
+    render jsonapi: @skill
   end
 
   # POST /skills
@@ -18,18 +18,18 @@ class SkillsController < ApplicationController
     @skill = Skill.new(skill_params)
 
     if @skill.save
-      render json: @skill, status: :created, location: @skill
+      render jsonapi: @skill, status: :created, location: @skill
     else
-      render json: @skill.errors, status: :unprocessable_entity
+      render jsonapi: @skill.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /skills/1
   def update
     if @skill.update(skill_params)
-      render json: @skill
+      render jsonapi: @skill
     else
-      render json: @skill.errors, status: :unprocessable_entity
+      render jsonapi: @skill.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +46,6 @@ class SkillsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def skill_params
-      params.fetch(:skill, {})
+      ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :level])
     end
 end

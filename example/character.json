@@ -1,0 +1,10 @@
+{
+    "data": {
+        "type": "characters",
+        "attributes": {
+            "name": "John Smith",
+            "refresh": 3
+        }
+    }
+}
+

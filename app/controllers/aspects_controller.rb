@@ -5,12 +5,12 @@ class AspectsController < ApplicationController
   def index
     @aspects = Aspect.all
 
-    render json: @aspects
+    render jsonapi: @aspects
   end
 
   # GET /aspects/1
   def show
-    render json: @aspect
+    render jsonapi: @aspect
   end
 
   # POST /aspects
@@ -18,18 +18,18 @@ class AspectsController < ApplicationController
     @aspect = Aspect.new(aspect_params)
 
     if @aspect.save
-      render json: @aspect, status: :created, location: @aspect
+      render jsonapi: @aspect, status: :created, location: @aspect
     else
-      render json: @aspect.errors, status: :unprocessable_entity
+      render jsonapi: @aspect.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /aspects/1
   def update
     if @aspect.update(aspect_params)
-      render json: @aspect
+      render jsonapi: @aspect
     else
-      render json: @aspect.errors, status: :unprocessable_entity
+      render jsonapi: @aspect.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +46,6 @@ class AspectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def aspect_params
-      params.fetch(:aspect, {})
+      ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :label])
     end
 end
