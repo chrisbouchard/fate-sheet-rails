@@ -7,6 +7,8 @@ class CreateSkills < ActiveRecord::Migration[6.0]
       t.belongs_to :character, null: false, foreign_key: true
 
       t.timestamps
+
+      t.index [:character_id, :name], unique: true
     end
   end
 end
