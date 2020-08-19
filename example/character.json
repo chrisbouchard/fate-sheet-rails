@@ -2,8 +2,8 @@
     "data": {
         "type": "characters",
         "attributes": {
-            "name": null,
-            "refresh": null
+            "name": "John Smith",
+            "refresh": 3
         }
     }
 }
