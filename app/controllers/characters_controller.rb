@@ -5,23 +5,26 @@ class CharactersController < ApplicationController
   def index
     @characters = Character.all
 
-    render jsonapi: @characters
+    # TODO: Filter include for security?
+    render jsonapi: @characters, include: params[:include]
   end
 
   # GET /characters/1
   def show
-    render jsonapi: @character
+    # TODO: Filter include for security?
+    render jsonapi: @character, include: params[:include]
   end
 
   # POST /characters
   def create
-    logger.info "request: #{params.inspect}"
     @character = Character.new(character_params)
 
     if @character.save
       render jsonapi: @character, status: :created, location: @character
     else
-      render jsonapi: @character.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @character, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -30,7 +33,9 @@ class CharactersController < ApplicationController
     if @character.update(character_params)
       render jsonapi: @character
     else
-      render jsonapi: @character.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @character, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -47,6 +52,8 @@ class CharactersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def character_params
+      # Based on https://github.com/rails-api/active_model_serializers/issues/1858
+      # and https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/deserialization.md
       ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :fate_points, :refresh])
     end
 end

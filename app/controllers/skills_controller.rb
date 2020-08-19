@@ -5,12 +5,14 @@ class SkillsController < ApplicationController
   def index
     @skills = Skill.all
 
-    render jsonapi: @skills
+    # TODO: Filter include for security?
+    render jsonapi: @skills, include: params[:include]
   end
 
   # GET /skills/1
   def show
-    render jsonapi: @skill
+    # TODO: Filter include for security?
+    render jsonapi: @skill, include: params[:include]
   end
 
   # POST /skills
@@ -20,7 +22,9 @@ class SkillsController < ApplicationController
     if @skill.save
       render jsonapi: @skill, status: :created, location: @skill
     else
-      render jsonapi: @skill.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @skill, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -29,7 +33,9 @@ class SkillsController < ApplicationController
     if @skill.update(skill_params)
       render jsonapi: @skill
     else
-      render jsonapi: @skill.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @skill, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -46,6 +52,8 @@ class SkillsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def skill_params
+      # Based on https://github.com/rails-api/active_model_serializers/issues/1858
+      # and https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/deserialization.md
       ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :level])
     end
 end

@@ -5,12 +5,14 @@ class AspectsController < ApplicationController
   def index
     @aspects = Aspect.all
 
-    render jsonapi: @aspects
+    # TODO: Filter include for security?
+    render jsonapi: @aspects, include: params[:include]
   end
 
   # GET /aspects/1
   def show
-    render jsonapi: @aspect
+    # TODO: Filter include for security?
+    render jsonapi: @aspect, include: params[:include]
   end
 
   # POST /aspects
@@ -20,7 +22,9 @@ class AspectsController < ApplicationController
     if @aspect.save
       render jsonapi: @aspect, status: :created, location: @aspect
     else
-      render jsonapi: @aspect.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @aspect, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -29,7 +33,9 @@ class AspectsController < ApplicationController
     if @aspect.update(aspect_params)
       render jsonapi: @aspect
     else
-      render jsonapi: @aspect.errors, status: :unprocessable_entity
+      # Based on https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/jsonapi/errors.md
+      render jsonapi: @aspect, status: :unprocessable_entity,
+        serializer: ActiveModel::Serializer::ErrorSerializer
     end
   end
 
@@ -46,6 +52,8 @@ class AspectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def aspect_params
+      # Based on https://github.com/rails-api/active_model_serializers/issues/1858
+      # and https://github.com/rails-api/active_model_serializers/blob/v0.10.6/docs/general/deserialization.md
       ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [:name, :label])
     end
 end
