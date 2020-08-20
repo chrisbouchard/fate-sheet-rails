@@ -1,2 +1,2 @@
-class AspectsController < BaseResourceController
+class AspectsController < ApplicationController
 end

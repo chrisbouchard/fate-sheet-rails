@@ -1,2 +1,2 @@
-class CharactersController < BaseResourceController
+class CharactersController < ApplicationController
 end

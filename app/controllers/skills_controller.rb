@@ -1,2 +1,2 @@
-class SkillsController < BaseResourceController
+class SkillsController < ApplicationController
 end
