@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_08_18_015258) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "aspects", force: :cascade do |t|
     t.integer "position", null: false
     t.text "name"
     t.text "label"
-    t.integer "character_id", null: false
+    t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["character_id", "position"], name: "index_aspects_on_character_id_and_position", unique: true
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
   create_table "skills", force: :cascade do |t|
     t.text "name", null: false
     t.integer "level", null: false
-    t.integer "character_id", null: false
+    t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["character_id", "name"], name: "index_skills_on_character_id_and_name", unique: true
