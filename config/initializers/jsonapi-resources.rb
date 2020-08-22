@@ -1,7 +1,7 @@
 JSONAPI.configure do |config|
   config.resource_cache = Rails.cache
-  # config.default_caching = true
 
+  # TODO: These lines can be enabled once we upgrade to 0.10.
   # config.include_backtraces_in_errors = false
   # config.include_application_backtraces_in_errors = false
 
