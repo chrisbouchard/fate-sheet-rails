@@ -1,6 +1,6 @@
 class Aspect < ApplicationRecord
-  belongs_to :character
-  acts_as_list scope: :character
+  belongs_to :aspected, polymorphic: true
+  acts_as_list scope: :aspected
 
-  validates :character, presence: true
+  validates :aspected, presence: true
 end

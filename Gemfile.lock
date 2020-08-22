@@ -70,7 +70,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
-    jsonapi-resources (0.10.2)
+    jsonapi-resources (0.9.11)
       activerecord (>= 4.1)
       concurrent-ruby
       railties (>= 4.1)
@@ -156,7 +156,7 @@ DEPENDENCIES
   acts_as_list (~> 1.0)
   bootsnap (>= 1.4.2)
   byebug
-  jsonapi-resources (~> 0.10)
+  jsonapi-resources (~> 0.9.0)
   listen (~> 3.2)
   pg (~> 1.2)
   puma (~> 4.1)

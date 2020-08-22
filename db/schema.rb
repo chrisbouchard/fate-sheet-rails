@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
     t.integer "position", null: false
     t.text "name"
     t.text "label"
-    t.bigint "character_id", null: false
+    t.string "aspected_type", null: false
+    t.bigint "aspected_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["character_id", "position"], name: "index_aspects_on_character_id_and_position", unique: true
-    t.index ["character_id"], name: "index_aspects_on_character_id"
+    t.index ["aspected_id", "position"], name: "index_aspects_on_aspected_id_and_position", unique: true
+    t.index ["aspected_type", "aspected_id"], name: "index_aspects_on_aspected_type_and_aspected_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -35,8 +36,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
   end
 
   create_table "skills", force: :cascade do |t|
-    t.text "name", null: false
     t.integer "level", null: false
+    t.text "name", null: false
     t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -44,6 +45,5 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
     t.index ["character_id"], name: "index_skills_on_character_id"
   end
 
-  add_foreign_key "aspects", "characters"
   add_foreign_key "skills", "characters"
 end
