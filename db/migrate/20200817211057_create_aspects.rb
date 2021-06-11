@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateAspects < ActiveRecord::Migration[6.0]
+class CreateAspects < ActiveRecord::Migration[6.1]
   def change
     create_table :aspects do |t|
       t.integer :position, null: false
