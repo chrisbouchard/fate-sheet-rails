@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
+#
 # Alice
 
 alice = Character.find_or_create_by(name: 'Alice') do |character|
@@ -38,7 +41,7 @@ Skill.find_or_create_by(character: alice, name: 'Contacts') do |skill|
   skill.level = 1
 end
 
-
+#
 # Bob
 
 bob = Character.find_or_create_by(name: 'Bob') do |character|
@@ -68,7 +71,7 @@ Skill.find_or_create_by(character: bob, name: 'Shoot') do |skill|
   skill.level = 1
 end
 
-
+#
 # Chris
 
 chris = Character.find_or_create_by(name: 'Chris') do |character|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSkills < ActiveRecord::Migration[6.0]
   def change
     create_table :skills do |t|
@@ -8,7 +10,7 @@ class CreateSkills < ActiveRecord::Migration[6.0]
 
       t.timestamps
 
-      t.index [:character_id, :name], unique: true
+      t.index %i[character_id name], unique: true
     end
   end
 end

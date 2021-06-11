@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AspectedsController < ApplicationController
   # This controller must exist becuase AspectResource uses
   #
