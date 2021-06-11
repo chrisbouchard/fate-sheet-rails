@@ -1,0 +1,19 @@
+{
+    "data": {
+        "type": "skills",
+        "attributes": {
+            "name": "Test",
+            "level": 3
+        },
+        "relationships": {
+            "character": {
+                "data": {
+                    "type": "characters",
+                    "id": "5"
+                }
+            }
+        }
+    }
+}
+
+
