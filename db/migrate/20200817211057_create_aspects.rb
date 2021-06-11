@@ -1,4 +1,6 @@
-class CreateAspects < ActiveRecord::Migration[6.0]
+# frozen_string_literal: true
+
+class CreateAspects < ActiveRecord::Migration[6.1]
   def change
     create_table :aspects do |t|
       t.integer :position, null: false
@@ -9,7 +11,7 @@ class CreateAspects < ActiveRecord::Migration[6.0]
 
       t.timestamps
 
-      t.index [:aspected_id, :position], unique: true
+      t.index %i[aspected_id position], unique: true
     end
   end
 end

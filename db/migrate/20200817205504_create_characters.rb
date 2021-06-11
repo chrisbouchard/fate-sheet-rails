@@ -1,4 +1,6 @@
-class CreateCharacters < ActiveRecord::Migration[6.0]
+# frozen_string_literal: true
+
+class CreateCharacters < ActiveRecord::Migration[6.1]
   def change
     create_table :characters do |t|
       t.text :name, null: false

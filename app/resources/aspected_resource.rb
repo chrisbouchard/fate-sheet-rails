@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AspectedResource < JSONAPI::Resource
   # This resource must exist becuase AspectResource uses
   #
