@@ -40,4 +40,4 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'acts_as_list', '~> 1.0'
-gem 'jsonapi-resources', '~> 0.9'
+gem 'jsonapi-resources', '~> 0.9.0'
