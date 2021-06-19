@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_015258) do
+ActiveRecord::Schema.define(version: 2021_06_19_030228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
     t.integer "refresh", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "world_id"
+    t.index ["world_id"], name: "index_characters_on_world_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "world_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+    t.index ["world_id"], name: "index_memberships_on_world_id"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -45,5 +56,22 @@ ActiveRecord::Schema.define(version: 2020_08_18_015258) do
     t.index ["character_id"], name: "index_skills_on_character_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "short_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "worlds", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "characters", "worlds"
+  add_foreign_key "memberships", "users"
+  add_foreign_key "memberships", "worlds"
   add_foreign_key "skills", "characters"
 end
