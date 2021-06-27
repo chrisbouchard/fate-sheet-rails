@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+require 'net/http'
+require 'uri'
+
+class JsonWebToken
+  def self.verify(token)
+    JWT.decode(
+      token,
+      nil,
+      true, # Verify the signature of this token
+      algorithms: 'RS256',
+      iss: Rails.application.credentials.auth0[:domain],
+      verify_iss: true,
+      aud: Rails.application.credentials.auth0[:api_audience],
+      verify_aud: true
+    ) do |header|
+      jwks_hash[header['kid']]
+    end
+  end
+
+  def self.jwks_hash
+    jwks_uri = URI("#{Rails.application.credentials.auth0[:domain]}.well-known/jwks.json")
+    # TODO: Should we cache this at all?
+    jwks_raw = Net::HTTP.get jwks_uri
+    jwks_keys = JSON.parse(jwks_raw)['keys'].to_a
+    jwks_keys.map do |key|
+      [
+        key['kid'],
+        OpenSSL::X509::Certificate.new(
+          Base64.decode64(key['x5c'].first)
+        ).public_key
+      ]
+    end.to_h
+  end
+end

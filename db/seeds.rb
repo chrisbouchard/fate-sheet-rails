@@ -8,8 +8,7 @@
 
 test_user =
   User.create!(
-    name: 'Test McTesterson',
-    short_name: 'Test'
+    auth0_id: 'auth0|60d77fc27cd79d006839e407'
   )
 
 #
