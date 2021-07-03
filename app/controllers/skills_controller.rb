@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class SkillsController < ApplicationController
+class SkillsController < BaseResourceController
 end

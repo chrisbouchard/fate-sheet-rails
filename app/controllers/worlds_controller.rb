@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class WorldsController < ApplicationController
+class WorldsController < BaseResourceController
 end

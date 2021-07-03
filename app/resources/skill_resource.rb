@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SkillResource < JSONAPI::Resource
+class SkillResource < BaseResource
   attributes :name, :level
   has_one :character
 

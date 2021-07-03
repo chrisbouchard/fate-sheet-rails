@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AspectResource < JSONAPI::Resource
+class AspectResource < BaseResource
   attributes :name, :label
   has_one :aspected, polymorphic: true
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MembershipResource < JSONAPI::Resource
+class MembershipResource < BaseResource
   has_one :user
   has_one :world
 end

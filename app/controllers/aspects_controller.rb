@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class AspectsController < ApplicationController
+class AspectsController < BaseResourceController
 end

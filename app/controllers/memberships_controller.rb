@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class MembershipsController < ApplicationController
+class MembershipsController < BaseResourceController
 end

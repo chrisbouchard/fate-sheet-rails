@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserResource < JSONAPI::Resource
+class UserResource < BaseResource
   attributes :name, :short_name
   has_many :memberships
   has_many :worlds

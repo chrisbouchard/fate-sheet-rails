@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WorldResource < JSONAPI::Resource
+class WorldResource < BaseResource
   attributes :name, :description
   has_many :aspects
   has_many :characters

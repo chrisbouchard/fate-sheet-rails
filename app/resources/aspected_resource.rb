@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AspectedResource < JSONAPI::Resource
+class AspectedResource < BaseResource
   # This resource must exist becuase AspectResource uses
   #
   #     has_one :aspected, polymorphic: true
