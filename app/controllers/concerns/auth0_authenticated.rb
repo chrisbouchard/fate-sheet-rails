@@ -4,7 +4,7 @@ module Auth0Authenticated
   extend ActiveSupport::Concern
 
   def current_user
-    token_id = auth_token['sub']
+    token_id = auth_token.first['sub']
     @current_user ||= User.create_or_find_by! auth0_id: token_id
   end
 
