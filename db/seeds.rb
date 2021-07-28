@@ -6,7 +6,12 @@
 #
 # Test User
 
-test_user =
+dev_user =
+  User.create!(
+    auth0_id: '0CT9cqlpLELq9tAQie8xinZQKOImPjLb@clients'
+  )
+
+my_user =
   User.create!(
     auth0_id: 'auth0|60d77fc27cd79d006839e407'
   )
@@ -21,8 +26,10 @@ test_world =
   )
 
 Membership.create!(
-  user: test_user,
-  world: test_world
+  [
+    { user: dev_user, world: test_world },
+    { user: my_user, world: test_world }
+  ]
 )
 
 #
@@ -33,6 +40,8 @@ alice_character =
     name: 'Alice',
     fate_points: 0,
     refresh: 3,
+    power_level: 3,
+    skill_points: 10,
     world: test_world
   )
 
@@ -53,6 +62,18 @@ alice_character.skills.create!(
   ]
 )
 
+alice_character
+  .stress_tracks
+  .create!(name: 'Physical')
+  .stress_boxes
+  .create!((1...2).map { |level| { level: level, checked: false } })
+
+alice_character
+  .stress_tracks
+  .create!(name: 'Mental')
+  .stress_boxes
+  .create!((1...2).map { |level| { level: level, checked: false } })
+
 #
 # Bob
 
@@ -61,6 +82,8 @@ bob_character =
     name: 'Bob',
     fate_points: 1,
     refresh: 2,
+    power_level: 3,
+    skill_points: 10,
     world: test_world
   )
 
@@ -79,6 +102,18 @@ bob_character.skills.create!(
   ]
 )
 
+bob_character
+  .stress_tracks
+  .create!(name: 'Physical')
+  .stress_boxes
+  .create!((1...3).map { |level| { level: level, checked: false } })
+
+bob_character
+  .stress_tracks
+  .create!(name: 'Mental')
+  .stress_boxes
+  .create!((1...2).map { |level| { level: level, checked: false } })
+
 #
 # Chris
 
@@ -87,6 +122,8 @@ chris_character =
     name: 'Chris',
     fate_points: 2,
     refresh: 1,
+    power_level: 3,
+    skill_points: 10,
     world: test_world
   )
 
@@ -107,3 +144,15 @@ chris_character.skills.create!(
     { name: 'Crafts', level: 1 }
   ]
 )
+
+chris_character
+  .stress_tracks
+  .create!(name: 'Physical')
+  .stress_boxes
+  .create!((1...2).map { |level| { level: level, checked: false } })
+
+chris_character
+  .stress_tracks
+  .create!(name: 'Mental')
+  .stress_boxes
+  .create!([1, 1, 2].map { |level| { level: level, checked: false } })

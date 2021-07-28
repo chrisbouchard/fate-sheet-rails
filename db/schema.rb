@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_032913) do
+ActiveRecord::Schema.define(version: 2021_07_22_034431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(version: 2021_06_27_032913) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "world_id"
+    t.text "description"
+    t.integer "power_level"
+    t.integer "skill_points"
     t.index ["world_id"], name: "index_characters_on_world_id"
   end
 
@@ -56,6 +59,27 @@ ActiveRecord::Schema.define(version: 2021_06_27_032913) do
     t.index ["character_id"], name: "index_skills_on_character_id"
   end
 
+  create_table "stress_boxes", force: :cascade do |t|
+    t.integer "position", null: false
+    t.integer "level", null: false
+    t.boolean "checked", default: false, null: false
+    t.bigint "stress_track_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stress_track_id", "position"], name: "index_stress_boxes_on_stress_track_id_and_position", unique: true
+    t.index ["stress_track_id"], name: "index_stress_boxes_on_stress_track_id"
+  end
+
+  create_table "stress_tracks", force: :cascade do |t|
+    t.integer "position", null: false
+    t.string "name", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id", "position"], name: "index_stress_tracks_on_character_id_and_position", unique: true
+    t.index ["character_id"], name: "index_stress_tracks_on_character_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -74,4 +98,6 @@ ActiveRecord::Schema.define(version: 2021_06_27_032913) do
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "worlds"
   add_foreign_key "skills", "characters"
+  add_foreign_key "stress_boxes", "stress_tracks"
+  add_foreign_key "stress_tracks", "characters"
 end
