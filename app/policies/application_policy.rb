@@ -45,7 +45,11 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.all
+      if scope.respond_to? :for_user
+        scope.for_user user
+      else
+        scope.all
+      end
     end
   end
 end

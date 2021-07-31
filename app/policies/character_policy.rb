@@ -8,10 +8,4 @@ class CharacterPolicy < ApplicationPolicy
   def show?
     true
   end
-
-  class Scope < Scope
-    def resolve
-      scope.joins(world: :users).where(users: { id: user.id })
-    end
-  end
 end
