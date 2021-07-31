@@ -12,4 +12,6 @@ class Character < ApplicationRecord
   validates :refresh, presence: true
   validates_associated :aspects
   validates_associated :skills
+
+  scope :for_user, ->(user) { joins(:world).merge(World.for_user(user)) }
 end

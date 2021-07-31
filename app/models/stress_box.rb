@@ -6,4 +6,6 @@ class StressBox < ApplicationRecord
 
   validates :checked, inclusion: [true, false]
   validates :level, presence: true
+
+  scope :for_user, ->(user) { joins(:stress_track).merge(StressTrack.for_user(user)) }
 end

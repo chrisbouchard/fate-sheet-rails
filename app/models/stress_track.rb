@@ -6,4 +6,6 @@ class StressTrack < ApplicationRecord
   acts_as_list scope: :character
 
   validates :name, presence: true
+
+  scope :for_user, ->(user) { joins(:character).merge(Character.for_user(user)) }
 end

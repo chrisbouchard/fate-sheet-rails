@@ -9,4 +9,6 @@ class World < ApplicationRecord
 
   validates :name, presence: true
   validates_associated :aspects
+
+  scope :for_user, ->(user) { joins(:users).where(users: { id: user.id }) }
 end
