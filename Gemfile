@@ -41,6 +41,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'active_record_union', '~> 1.0'
 gem 'acts_as_list', '~> 1.0'
 gem 'jsonapi-authorization', '~> 3.0.0'
 gem 'jsonapi-resources', '~> 0.9.0'
