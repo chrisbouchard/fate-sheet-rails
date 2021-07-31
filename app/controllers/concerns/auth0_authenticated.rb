@@ -3,24 +3,24 @@
 module Auth0Authenticated
   extend ActiveSupport::Concern
 
-  def current_user
-    return unless auth_token.present?
+  include ActionController::HttpAuthentication::Token::ControllerMethods
 
-    token_id = auth_token.first['sub']
-    @current_user ||= User.create_or_find_by! auth0_id: token_id
+  attr_reader :current_auth0_id, :current_user
+
+  def authenticate_with_auth0_token!
+    @current_user = authenticate_or_request_with_http_token(&method(:authenticate))
+  end
+
+  def authenticate_with_auth0_token
+    @current_user = authenticate_with_http_token(&method(:authenticate))
   end
 
   private
 
-  def auth_token
-    @auth_token ||= token_verifier.decode_and_verify http_token if http_token.present?
-  end
+  def authenticate(http_token, _options)
+    authenticator = Auth0Authenticator.new(http_token)
+    @current_auth0_id = authenticator.auth0_id
 
-  def http_token
-    @http_token ||= request.authorization.split(' ').last if request.authorization.present?
-  end
-
-  def token_verifier
-    @token_verifier ||= Auth0JsonWebTokenVerifier.new(**Rails.application.credentials.auth0)
+    User.create_or_find_by! auth0_id: @current_auth0_id
   end
 end

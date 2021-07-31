@@ -3,14 +3,27 @@
 require 'net/http'
 require 'uri'
 
-class Auth0JsonWebTokenVerifier
-  def initialize(api_identifier:, domain:)
-    @api_identifier = api_identifier
-    @domain = domain
+class Auth0Authenticator
+  def initialize(raw_token)
+    @api_identifier = auth0_credentials[:api_identifier]
+    @domain = auth0_credentials[:domain]
+    decode_and_verify raw_token
+  end
+
+  attr_reader :token
+
+  def auth0_id
+    @token[0]['sub']
+  end
+
+  private
+
+  def auth0_credentials
+    Rails.application.credentials.auth0
   end
 
   def decode_and_verify(token)
-    JWT.decode token, nil, true, {
+    @token = JWT.decode token, nil, true, {
       algorithms: ['RS256'],
       jwks: method(:load_jwks),
       iss: @domain,
@@ -19,8 +32,6 @@ class Auth0JsonWebTokenVerifier
       verify_aud: true
     }
   end
-
-  private
 
   def load_jwks(options)
     @load_jwks = nil if options[:invalidate]
