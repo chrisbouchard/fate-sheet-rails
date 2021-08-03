@@ -4,16 +4,12 @@ require 'net/http'
 require 'uri'
 
 class Auth0Authenticator
+  attr_reader :auth0_id
+
   def initialize(raw_token)
     @api_identifier = auth0_credentials[:api_identifier]
     @domain = auth0_credentials[:domain]
     decode_and_verify raw_token
-  end
-
-  attr_reader :token
-
-  def auth0_id
-    @token[0]['sub']
   end
 
   private
@@ -23,7 +19,7 @@ class Auth0Authenticator
   end
 
   def decode_and_verify(token)
-    @token = JWT.decode token, nil, true, {
+    token = JWT.decode token, nil, true, {
       algorithms: ['RS256'],
       jwks: method(:load_jwks),
       iss: @domain,
@@ -31,6 +27,7 @@ class Auth0Authenticator
       aud: @api_identifier,
       verify_aud: true
     }
+    @auth0_id = token[0]['sub']
   end
 
   def load_jwks(options)
