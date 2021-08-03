@@ -1,9 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  short_name: MyString
+  auth0_id: one-auth0-id
 
 two:
-  name: MyString
-  short_name: MyString
+  auth0_id: two-auth0-id

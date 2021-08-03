@@ -1,9 +1,47 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyText
-  label: MyText
+alice_high_concept:
+  aspected: alice (Character)
+  position: 1
+  name: Rails Application Testing Data
+  label: High Concept
 
-two:
-  name: MyText
-  label: MyText
+alice_trouble:
+  aspected: alice (Character)
+  position: 2
+  name: I'm Actually a Computer
+  label: Trouble
+
+alice_unlabelled_1:
+  aspected: alice (Character)
+  position: 3
+  name: Created from a Seed
+
+alice_unlabelled_2:
+  aspected: alice (Character)
+  position: 4
+  name: Dynamically Typed
+
+bob_high_concept:
+  aspected: bob (Character)
+  position: 1
+  name: Artificially Generated Adversary
+  label: High Concept
+
+bob_trouble:
+  aspected: bob (Character)
+  position: 2
+  name: Spaghetti
+  label: Trouble
+
+chris_high_concept:
+  aspected: chris (Character)
+  position: 1
+  name: Test Player Character
+  label: High Concept
+
+chris_trouble:
+  aspected: chris (Character)
+  position: 2
+  name: Rusty at Ruby
+  label: Trouble

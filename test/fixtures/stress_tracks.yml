@@ -1,11 +1,31 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+alice_physical:
+  character: alice
   position: 1
-  name: MyString
-  character: one
+  name: Physical
 
-two:
+alice_mental:
+  character: alice
+  position: 2
+  name: Mental
+
+bob_physical:
+  character: bob
   position: 1
-  name: MyString
-  character: two
+  name: Physical
+
+bob_mental:
+  character: bob
+  position: 2
+  name: Mental
+
+chris_physical:
+  character: chris
+  position: 1
+  name: Physical
+
+chris_mental:
+  character: chris
+  position: 2
+  name: Mental

@@ -1,13 +1,85 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+alice_physical_1:
+  stress_track: alice_physical
   position: 1
   level: 1
   checked: false
-  stress_track: one
 
-two:
+alice_physical_2:
+  stress_track: alice_physical
+  position: 2
+  level: 2
+  checked: false
+
+alice_mental_1:
+  stress_track: alice_mental
   position: 1
   level: 1
   checked: false
-  stress_track: two
+
+alice_mental_2:
+  stress_track: alice_mental
+  position: 2
+  level: 2
+  checked: false
+
+bob_physical_1:
+  stress_track: bob_physical
+  position: 1
+  level: 1
+  checked: false
+
+bob_physical_2:
+  stress_track: bob_physical
+  position: 2
+  level: 2
+  checked: false
+
+bob_physical_3:
+  stress_track: bob_physical
+  position: 3
+  level: 3
+  checked: false
+
+bob_mental_1:
+  stress_track: bob_mental
+  position: 1
+  level: 1
+  checked: false
+
+bob_mental_2:
+  stress_track: bob_mental
+  position: 2
+  level: 2
+  checked: false
+
+chris_physical_1:
+  stress_track: chris_physical
+  position: 1
+  level: 1
+  checked: false
+
+chris_physical_2:
+  stress_track: chris_physical
+  position: 2
+  level: 2
+  checked: false
+
+chris_mental_1:
+  stress_track: chris_mental
+  position: 1
+  level: 1
+  checked: false
+
+chris_mental_2:
+  stress_track: chris_mental
+  position: 2
+  level: 1
+  checked: false
+
+chris_mental_3:
+  stress_track: chris_mental
+  position: 3
+  level: 2
+  checked: false
