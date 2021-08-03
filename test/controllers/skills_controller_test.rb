@@ -2,39 +2,29 @@
 
 require 'test_helper'
 
-class SkillsControllerTest < ActionDispatch::IntegrationTest
+class SkillsControllerTest < ResourceControllerTest
   setup do
-    @skill = skills(:one)
+    @skill = skills(:alice_resources)
   end
 
   test 'should get index' do
-    get skills_url, as: :json
-    assert_response :success
-  end
-
-  test 'should create skill' do
-    assert_difference('Skill.count') do
-      post skills_url, params: { skill: {} }, as: :json
+    mock_auth0 users(:one) do
+      get skills_url,
+        as: :api_json,
+        headers: auth0_headers
     end
 
-    assert_response 201
+    assert_response :success
+    assert_not_empty response.parsed_body['data']
   end
 
   test 'should show skill' do
-    get skill_url(@skill), as: :json
-    assert_response :success
-  end
-
-  test 'should update skill' do
-    patch skill_url(@skill), params: { skill: {} }, as: :json
-    assert_response 200
-  end
-
-  test 'should destroy skill' do
-    assert_difference('Skill.count', -1) do
-      delete skill_url(@skill), as: :json
+    mock_auth0 users(:one) do
+      get skill_url(@skill),
+        as: :api_json,
+        headers: auth0_headers
     end
 
-    assert_response 204
+    assert_response :success
   end
 end
