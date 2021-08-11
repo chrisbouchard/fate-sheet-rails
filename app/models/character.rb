@@ -8,10 +8,9 @@ class Character < ApplicationRecord
   belongs_to :world
 
   validates :name, presence: true
-  validates :fate_points, presence: true
-  validates :refresh, presence: true
-  validates_associated :aspects
-  validates_associated :skills
+  validates :fate_points, :power_level, :refresh, :skill_points,
+    numericality: { greater_than_or_equal_to: 0, only_integer: true },
+    allow_nil: true
 
   scope :for_user, ->(user) { joins(:world).merge(World.for_user(user)) }
 end
