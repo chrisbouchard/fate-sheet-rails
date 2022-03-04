@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_034431) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_07_22_034431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,8 +20,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.text "label"
     t.string "aspected_type", null: false
     t.bigint "aspected_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["aspected_id", "position"], name: "index_aspects_on_aspected_id_and_position", unique: true
     t.index ["aspected_type", "aspected_id"], name: "index_aspects_on_aspected"
   end
@@ -31,8 +30,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.text "name", null: false
     t.integer "fate_points", default: 0, null: false
     t.integer "refresh", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "world_id"
     t.text "description"
     t.integer "power_level"
@@ -43,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "world_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_memberships_on_user_id"
     t.index ["world_id"], name: "index_memberships_on_world_id"
   end
@@ -53,8 +52,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.integer "level", null: false
     t.text "name", null: false
     t.bigint "character_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["character_id", "name"], name: "index_skills_on_character_id_and_name", unique: true
     t.index ["character_id"], name: "index_skills_on_character_id"
   end
@@ -64,8 +63,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.integer "level", null: false
     t.boolean "checked", default: false, null: false
     t.bigint "stress_track_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["stress_track_id", "position"], name: "index_stress_boxes_on_stress_track_id_and_position", unique: true
     t.index ["stress_track_id"], name: "index_stress_boxes_on_stress_track_id"
   end
@@ -74,15 +73,15 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.integer "position", null: false
     t.string "name", null: false
     t.bigint "character_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["character_id", "position"], name: "index_stress_tracks_on_character_id_and_position", unique: true
     t.index ["character_id"], name: "index_stress_tracks_on_character_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "auth0_id"
     t.index ["auth0_id"], name: "index_users_on_auth0_id", unique: true
   end
@@ -90,8 +89,8 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
   create_table "worlds", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "characters", "worlds"

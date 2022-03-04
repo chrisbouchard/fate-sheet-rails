@@ -5,3 +5,5 @@ AllCops:
     - script/**/*
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
