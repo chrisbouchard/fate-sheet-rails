@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-require 'rails/test_help'
-require 'minitest/autorun'
+ENV["RAILS_ENV"] ||= "test"
+require_relative "../config/environment"
+require "rails/test_help"
+require "minitest/autorun"
 
 module ActiveSupport
   class TestCase
@@ -18,7 +18,7 @@ module ActiveSupport
 end
 
 class ResourceControllerTest < ActionDispatch::IntegrationTest
-  FAKE_AUTH0_TOKEN = 'fake.auth0.token'
+  FAKE_AUTH0_TOKEN = "fake.auth0.token"
 
   setup do
     ActionDispatch::IntegrationTest.register_encoder :api_json,

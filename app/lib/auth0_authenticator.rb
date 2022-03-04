@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'net/http'
-require 'uri'
+require "net/http"
+require "uri"
 
 class Auth0Authenticator
   attr_reader :auth0_id
@@ -20,14 +20,14 @@ class Auth0Authenticator
 
   def decode_and_verify(token)
     token = JWT.decode token, nil, true, {
-      algorithms: ['RS256'],
+      algorithms: ["RS256"],
       jwks: method(:load_jwks),
       iss: @domain,
       verify_iss: true,
       aud: @api_identifier,
       verify_aud: true
     }
-    @auth0_id = token[0]['sub']
+    @auth0_id = token[0]["sub"]
   end
 
   def load_jwks(options)
