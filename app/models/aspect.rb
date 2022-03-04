@@ -10,6 +10,7 @@ class Aspect < ApplicationRecord
     -> { where(aspects: { aspected_type: 'World' }).includes(:aspects) },
     foreign_key: 'aspected_id',
     optional: true
+
   acts_as_list scope: :aspected
 
   validates :aspected, presence: true

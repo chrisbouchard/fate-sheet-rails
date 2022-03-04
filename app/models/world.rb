@@ -9,5 +9,7 @@ class World < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :for_user, ->(user) { joins(:users).where(users: { id: user.id }) }
+  def self.for_user(user)
+    joins(:users).where(users: { id: user.id })
+  end
 end

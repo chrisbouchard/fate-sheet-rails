@@ -12,5 +12,7 @@ class Character < ApplicationRecord
     numericality: { greater_than_or_equal_to: 0, only_integer: true },
     allow_nil: true
 
-  scope :for_user, ->(user) { joins(:world).merge(World.for_user(user)) }
+  def self.for_user(user)
+    joins(:world).merge(World.for_user(user))
+  end
 end

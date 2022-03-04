@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_034431) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["aspected_id", "position"], name: "index_aspects_on_aspected_id_and_position", unique: true
-    t.index ["aspected_type", "aspected_id"], name: "index_aspects_on_aspected_type_and_aspected_id"
+    t.index ["aspected_type", "aspected_id"], name: "index_aspects_on_aspected"
   end
 
   create_table "characters", force: :cascade do |t|
