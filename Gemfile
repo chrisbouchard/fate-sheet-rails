@@ -48,6 +48,11 @@ group :development do
   # gem "spring"
 
   gem "rubocop"
+
+  # Dependencies for dgutov/robe
+  gem "pry"
+  gem "pry-doc"
+  gem "webrick"
 end
 
 gem "active_record_union", "~> 1.3"
