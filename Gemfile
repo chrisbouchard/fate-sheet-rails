@@ -38,6 +38,17 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
+gem "active_record_union", "~> 1.3"
+gem "acts_as_list", "~> 1.0"
+gem "attr_extras", "~> 6.2"
+gem "jsonapi-authorization", "~> 3.0"
+gem "jsonapi-resources", "~> 0.9.0"
+gem "jwt", "~>  2.2"
+
+group :test do
+  gem "webmock", "~> 3.14"
+end
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
@@ -54,9 +65,3 @@ group :development do
   gem "pry-doc"
   gem "webrick"
 end
-
-gem "active_record_union", "~> 1.3"
-gem "acts_as_list", "~> 1.0"
-gem "jsonapi-authorization", "~> 3.0"
-gem "jsonapi-resources", "~> 0.9.0"
-gem "jwt", "~>  2.2"
