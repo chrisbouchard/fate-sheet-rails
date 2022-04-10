@@ -2,37 +2,65 @@
 
 require "test_helper"
 
-class AspectsControllerTest < ActionDispatch::IntegrationTest
+class AspectsControllerTest < ResourceIntegrationTest
   setup do
-    @aspect = aspects(:one)
+    generate_auth0_jwk
+    stub_auth0_jwks_request
+
+    @aspect = aspects(:alice_high_concept)
   end
 
   test "should get index" do
-    get aspects_url, as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    get aspects_url,
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response :success
   end
 
   test "should create aspect" do
+    generate_auth0_access_token users(:one), duration: 1.hour
+
     assert_difference("Aspect.count") do
-      post aspects_url, params: { aspect: {} }, as: :json
+      post aspects_url,
+        params: { aspect: {} },
+        as: :api_json,
+        headers: auth0_headers
     end
 
     assert_response 201
   end
 
   test "should show aspect" do
-    get aspect_url(@aspect), as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    get aspect_url(@aspect),
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response :success
   end
 
   test "should update aspect" do
-    patch aspect_url(@aspect), params: { aspect: {} }, as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    patch aspect_url(@aspect),
+      params: { aspect: {} },
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response 200
   end
 
   test "should destroy aspect" do
+    generate_auth0_access_token users(:one), duration: 1.hour
+
     assert_difference("Aspect.count", -1) do
-      delete aspect_url(@aspect), as: :json
+      delete aspect_url(@aspect),
+        as: :api_json,
+        headers: auth0_headers
     end
 
     assert_response 204

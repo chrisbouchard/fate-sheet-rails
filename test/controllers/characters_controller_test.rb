@@ -2,37 +2,65 @@
 
 require "test_helper"
 
-class CharactersControllerTest < ActionDispatch::IntegrationTest
+class CharactersControllerTest < ResourceIntegrationTest
   setup do
-    @character = characters(:one)
+    generate_auth0_jwk
+    stub_auth0_jwks_request
+
+    @character = characters(:alice)
   end
 
   test "should get index" do
-    get characters_url, as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    get characters_url,
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response :success
   end
 
   test "should create character" do
+    generate_auth0_access_token users(:one), duration: 1.hour
+
     assert_difference("Character.count") do
-      post characters_url, params: { character: {} }, as: :json
+      post characters_url,
+        params: { character: {} },
+        as: :api_json,
+        headers: auth0_headers
     end
 
     assert_response 201
   end
 
   test "should show character" do
-    get character_url(@character), as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    get character_url(@character),
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response :success
   end
 
   test "should update character" do
-    patch character_url(@character), params: { character: {} }, as: :json
+    generate_auth0_access_token users(:one), duration: 1.hour
+
+    patch character_url(@character),
+      params: { character: {} },
+      as: :api_json,
+      headers: auth0_headers
+
     assert_response 200
   end
 
   test "should destroy character" do
+    generate_auth0_access_token users(:one), duration: 1.hour
+
     assert_difference("Character.count", -1) do
-      delete character_url(@character), as: :json
+      delete character_url(@character),
+        as: :api_json,
+        headers: auth0_headers
     end
 
     assert_response 204

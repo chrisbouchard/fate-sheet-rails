@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class BaseResourceController < ApplicationController
-  include JSONAPI::ActsAsResourceController
   include Auth0Authenticated
-
-  prepend_before_action :authenticate_with_auth0_token!
+  include JSONAPI::ActsAsResourceController
 
   rescue_from JWT::DecodeError, with: :user_not_authenticated
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized

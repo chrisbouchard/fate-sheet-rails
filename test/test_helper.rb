@@ -4,6 +4,9 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 require "minitest/autorun"
+require "webmock/minitest"
+
+Dir[Rails.root.join("test/support/**/*")].each { |f| require f }
 
 module ActiveSupport
   class TestCase
@@ -17,32 +20,13 @@ module ActiveSupport
   end
 end
 
-class ResourceControllerTest < ActionDispatch::IntegrationTest
-  FAKE_AUTH0_TOKEN = "fake.auth0.token"
+# TODO: This changed a lot. Update relevant tests.
+class ResourceIntegrationTest < ActionDispatch::IntegrationTest
+  include Auth0IntegrationHelpers
 
   setup do
     ActionDispatch::IntegrationTest.register_encoder :api_json,
       param_encoder: ->(params) { params.to_json },
       response_parser: ->(body) { JSON.parse(body) }
-  end
-
-  # Create a mock for the Auth0 authenticator and stub it.
-  def mock_auth0(auth0_id_or_user)
-    authenticator = Minitest::Mock.new
-
-    if auth0_id_or_user.respond_to? :auth0_id
-      authenticator.expect :auth0_id, auth0_id_or_user.auth0_id
-    elsif !auth0_id_or_user.nil?
-      authenticator.expect :auth0_id, auth0_id_or_user
-    end
-
-    Auth0Authenticator.stub :new, authenticator do
-      yield authenticator
-    end
-  end
-
-  # Set headers required by the API.
-  def auth0_headers(token: FAKE_AUTH0_TOKEN)
-    { 'Authorization': "Bearer #{token}" }
   end
 end
