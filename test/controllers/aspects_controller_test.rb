@@ -21,6 +21,8 @@ class AspectsControllerTest < ResourceIntegrationTest
   end
 
   test "should create aspect" do
+    skip "Not implemented yet"
+
     generate_auth0_access_token users(:one), duration: 1.hour
 
     assert_difference("Aspect.count") do
@@ -44,6 +46,8 @@ class AspectsControllerTest < ResourceIntegrationTest
   end
 
   test "should update aspect" do
+    skip "Not implemented yet"
+
     generate_auth0_access_token users(:one), duration: 1.hour
 
     patch aspect_url(@aspect),
@@ -55,6 +59,8 @@ class AspectsControllerTest < ResourceIntegrationTest
   end
 
   test "should destroy aspect" do
+    skip "Not implemented yet"
+
     generate_auth0_access_token users(:one), duration: 1.hour
 
     assert_difference("Aspect.count", -1) do
