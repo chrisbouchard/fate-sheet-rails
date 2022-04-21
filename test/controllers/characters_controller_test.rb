@@ -20,6 +20,23 @@ class CharactersControllerTest < ResourceIntegrationTest
     assert_response :success
   end
 
+  test "should reject index without a token" do
+    get characters_url,
+      as: :api_json
+
+    assert_response 401
+  end
+
+  test "should reject index with an invalid token" do
+    override_auth0_access_token "not-a-valid-token"
+
+    get characters_url,
+      as: :api_json,
+      headers: auth0_headers
+
+    assert_response 401
+  end
+
   test "should create character" do
     skip "Not implemented yet"
 
@@ -43,6 +60,33 @@ class CharactersControllerTest < ResourceIntegrationTest
       headers: auth0_headers
 
     assert_response :success
+  end
+
+  test "should not show a character for a user in a different world" do
+    generate_auth0_access_token users(:two), duration: 1.hour
+
+    get character_url(@character),
+      as: :api_json,
+      headers: auth0_headers
+
+    assert_response :not_found
+  end
+
+  test "should reject show without a token" do
+    get character_url(@character),
+      as: :api_json
+
+    assert_response 401
+  end
+
+  test "should reject show with an invalid token" do
+    override_auth0_access_token "not-a-valid-token"
+
+    get character_url(@character),
+      as: :api_json,
+      headers: auth0_headers
+
+    assert_response 401
   end
 
   test "should update character" do
