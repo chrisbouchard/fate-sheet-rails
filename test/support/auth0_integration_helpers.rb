@@ -51,6 +51,10 @@ module Auth0IntegrationHelpers
     @auth0_token = JWT.encode payload, jwk.keypair, auth0_configuration.algorithm, headers
   end
 
+  def override_auth0_access_token(token)
+    @auth0_token = token
+  end
+
   def auth0_headers(token = auth0_token)
     { "Authorization": "Bearer #{token}" }
   end
