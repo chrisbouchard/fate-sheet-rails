@@ -6,7 +6,7 @@ JSONAPI.configure do |config|
   config.exception_class_whitelist = [
     # We'll rescue these in the controller for a better error response.
     JWT::DecodeError,
-    Pundit::NotAuthorizedError
+    Pundit::NotAuthorizedError,
   ]
 
   config.resource_cache = Rails.cache

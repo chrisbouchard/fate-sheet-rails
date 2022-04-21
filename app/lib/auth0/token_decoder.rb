@@ -30,7 +30,7 @@ module Auth0
         iss: configuration.domain,
         verify_iss: true,
         aud: configuration.api_identifier,
-        verify_aud: true
+        verify_aud: true,
       }
     end
   end

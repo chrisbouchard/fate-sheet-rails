@@ -3,7 +3,38 @@ AllCops:
     - bin/**/*
     - db/schema.rb
     - script/**/*
+  NewCops: enable
+
+# Fixed-width indentation avoids noisy diffs when renaming identifiers.
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
+Layout/ArrayAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/LineEndStringConcatenationIndentation:
+  EnforcedStyle: indented
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+# We have to go one way or the other, and I choose double quotes. Single quotes
+# are more common in strings than double quotes.
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+# I trust authors to use this syntax contextually.
+Style/SymbolArray:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+# Multiline trailing commas allow for simpler code editing and smaller diffs.
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+

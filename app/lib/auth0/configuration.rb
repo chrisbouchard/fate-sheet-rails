@@ -8,7 +8,7 @@ module Auth0
       :domain,
       :key,
       :well_known_uri,
-      { jwks: Auth0::Jwk.well_known }
+      { jwks: Auth0::Jwk.well_known },
     ]
   end
 end

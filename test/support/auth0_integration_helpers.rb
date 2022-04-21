@@ -45,7 +45,7 @@ module Auth0IntegrationHelpers
       aud: auth0_configuration.api_identifier,
       exp: (Time.now + duration).to_i,
       iss: auth0_configuration.domain,
-      sub: extract_auth0_id(auth0_id_or_user)
+      sub: extract_auth0_id(auth0_id_or_user),
     }
 
     @auth0_token = JWT.encode payload, jwk.keypair, auth0_configuration.algorithm, headers
@@ -56,7 +56,7 @@ module Auth0IntegrationHelpers
   end
 
   def auth0_headers(token = auth0_token)
-    { "Authorization": "Bearer #{token}" }
+    { Authorization: "Bearer #{token}" }
   end
 
   private

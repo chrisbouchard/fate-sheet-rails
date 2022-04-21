@@ -18,7 +18,7 @@ class Aspect < ApplicationRecord
   def self.for_user(user)
     [
       joins(:character).merge(Character.for_user(user)),
-      joins(:world).merge(World.for_user(user))
+      joins(:world).merge(World.for_user(user)),
     ].inject(:union_all)
   end
 end
