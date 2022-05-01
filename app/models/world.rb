@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class World < ApplicationRecord
-  has_many :aspects, as: :aspected, dependent: :destroy
+  has_many :aspects, as: :aspected, dependent: :destroy, inverse_of: :aspected
   has_many :characters
 
   has_many :memberships, dependent: :destroy
