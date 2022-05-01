@@ -46,7 +46,7 @@ class ApplicationPolicy
 
     def resolve
       if scope.respond_to? :for_user
-        scope.for_user user
+        scope.where(id: [nil, scope.for_user(user)])
       else
         scope.all
       end
