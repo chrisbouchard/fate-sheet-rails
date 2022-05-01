@@ -2,14 +2,28 @@
 
 class Aspect < ApplicationRecord
   belongs_to :aspected, polymorphic: true
-  belongs_to :character,
-    -> { where(aspects: { aspected_type: "Character" }).includes(:aspects) },
-    foreign_key: "aspected_id",
-    optional: true
-  belongs_to :world,
-    -> { where(aspects: { aspected_type: "World" }).includes(:aspects) },
-    foreign_key: "aspected_id",
-    optional: true
+
+  # We use this self-reference to allow direct access to the aspected character
+  # or world. Since there may not actually be an aspect in the query (e.g., if
+  # we are looking up the character for a loaded aspect), we need to join to
+  # aspect to get the polymorphic type.
+  #
+  # An unfortunate side-effect is that *all* queries using these associations
+  # will involve a join on aspects, even if aspects is already in the query. I
+  # couldn't find a reasonable way around this.
+  has_one :self_ref,
+    class_name: name,
+    foreign_key: :id
+
+  # We should have one association here for each type of "aspected" entity.
+  has_one :character,
+    through: :self_ref,
+    source: :aspected,
+    source_type: "Character"
+  has_one :world,
+    through: :self_ref,
+    source: :aspected,
+    source_type: "World"
 
   acts_as_list scope: :aspected
 
@@ -19,6 +33,6 @@ class Aspect < ApplicationRecord
     [
       joins(:character).merge(Character.for_user(user)),
       joins(:world).merge(World.for_user(user)),
-    ].inject(:union_all)
+    ].inject(:union)
   end
 end
