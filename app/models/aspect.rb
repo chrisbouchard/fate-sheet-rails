@@ -15,6 +15,15 @@ class Aspect < ApplicationRecord
     class_name: name,
     foreign_key: :id
 
+  # Make self_ref private, because no-one should be touching that. It only
+  # exists as an implementation detail for the various aspected associations.
+  private :self_ref,
+    :self_ref=,
+    :build_self_ref,
+    :create_self_ref,
+    :create_self_ref!,
+    :reload_self_ref
+
   # We should have one association here for each type of "aspected" entity.
   has_one :character,
     through: :self_ref,
