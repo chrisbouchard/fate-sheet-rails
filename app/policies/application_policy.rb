@@ -46,6 +46,14 @@ class ApplicationPolicy
 
     def resolve
       if scope.respond_to? :for_user
+        # It would be nice to just return scope.for_user(user), but that seems
+        # to trip up JSONAPI:Resources. It seems to get confused if the WHERE
+        # clause contains unexpected joins.
+        #
+        # Also, we need to accept nil so that we don't reject a resource with a
+        # NULL associated resource. The associated resources will be LEFT OUTER
+        # JOINED to the requested resource, so not allowing NULL rejects the
+        # whole row.
         scope.where(id: [nil, scope.for_user(user)])
       else
         scope.all
