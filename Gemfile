@@ -41,8 +41,8 @@ gem "rack-cors"
 gem "active_record_union", "~> 1.3"
 gem "acts_as_list", "~> 1.0"
 gem "attr_extras", "~> 6.2"
-gem "jsonapi-authorization", "~> 3.0"
-gem "jsonapi-resources", "~> 0.9.0"
+gem "jsonapi-authorization", git: "https://github.com/crunchybananas/jsonapi-authorization.git", branch: "v0_10"
+gem "jsonapi-resources", "~> 0.10.0"
 gem "jwt", "~>  2.2"
 
 group :test do
