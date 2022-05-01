@@ -10,6 +10,6 @@ class World < ApplicationRecord
   validates :name, presence: true
 
   def self.for_user(user)
-    joins(:users).where(users: { id: user.id })
+    joins(:memberships).merge(Membership.for_user(user))
   end
 end
