@@ -9,6 +9,46 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: first_agg(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.first_agg(anyelement, anyelement) RETURNS anyelement
+    LANGUAGE sql IMMUTABLE STRICT PARALLEL SAFE
+    AS $_$SELECT $1$_$;
+
+
+--
+-- Name: last_agg(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.last_agg(anyelement, anyelement) RETURNS anyelement
+    LANGUAGE sql IMMUTABLE STRICT PARALLEL SAFE
+    AS $_$SELECT $2$_$;
+
+
+--
+-- Name: first(anyelement); Type: AGGREGATE; Schema: public; Owner: -
+--
+
+CREATE AGGREGATE public.first(anyelement) (
+    SFUNC = public.first_agg,
+    STYPE = anyelement,
+    PARALLEL = safe
+);
+
+
+--
+-- Name: last(anyelement); Type: AGGREGATE; Schema: public; Owner: -
+--
+
+CREATE AGGREGATE public.last(anyelement) (
+    SFUNC = public.last_agg,
+    STYPE = anyelement,
+    PARALLEL = safe
+);
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -776,6 +816,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210722024448'),
 ('20210722033611'),
 ('20210722034431'),
-('20220519010148');
+('20220519010148'),
+('20220603050812');
 
 
