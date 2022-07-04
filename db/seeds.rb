@@ -166,3 +166,51 @@ chris_character
   .create!(name: "Mental")
   .stress_boxes
   .create!([1, 1, 2].map { |level| { level:, checked: false } })
+
+#
+# Mary
+
+mary_character =
+  Character.create!(
+    name: "Mary",
+    fate_points: 2,
+    refresh: 1,
+    power_level: 3,
+    skill_points: 10,
+    world: test_world,
+  )
+
+mary_character.portrait.attach(
+  io: File.open(Rails.root.join("assets", "mary.jpg")),
+  filename: "mary.jpg",
+)
+
+mary_character.aspects.create!(
+  [
+    { name: "Tiger", label: "High Concept" },
+    { name: "Bunny", label: "Trouble" },
+  ],
+)
+
+mary_character.skills.create!(
+  [
+    { name: "Craft", level: 3 },
+    { name: "Notice", level: 2 },
+    { name: "Lore", level: 2 },
+    { name: "Investigate", level: 1 },
+    { name: "Fight", level: 1 },
+    { name: "Provoke", level: 1 },
+  ],
+)
+
+mary_character
+  .stress_tracks
+  .create!(name: "Physical")
+  .stress_boxes
+  .create!((1...2).map { |level| { level:, checked: false } })
+
+mary_character
+  .stress_tracks
+  .create!(name: "Mental")
+  .stress_boxes
+  .create!([1, 1].map { |level| { level:, checked: false } })
