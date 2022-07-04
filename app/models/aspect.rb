@@ -1,38 +1,13 @@
 # frozen_string_literal: true
 
 class Aspect < ApplicationRecord
+  include PolymorphicSelfJoined
+
   belongs_to :aspected, polymorphic: true
 
-  # We use this self-reference to allow direct access to the aspected character
-  # or world. Since there may not actually be an aspect in the query (e.g., if
-  # we are looking up the character for a loaded aspect), we need to join to
-  # aspect to get the polymorphic type.
-  #
-  # An unfortunate side-effect is that *all* queries using these associations
-  # will involve a join on aspects, even if aspects is already in the query. I
-  # couldn't find a reasonable way around this.
-  has_one :self_ref,
-    class_name: name,
-    foreign_key: :id
-
-  # Make self_ref private, because no-one should be touching that. It only
-  # exists as an implementation detail for the various aspected associations.
-  private :self_ref,
-    :self_ref=,
-    :build_self_ref,
-    :create_self_ref,
-    :create_self_ref!,
-    :reload_self_ref
-
   # We should have one association here for each type of "aspected" entity.
-  has_one :character,
-    through: :self_ref,
-    source: :aspected,
-    source_type: "Character"
-  has_one :world,
-    through: :self_ref,
-    source: :aspected,
-    source_type: "World"
+  has_one_through_self :character, source: :aspected
+  has_one_through_self :world, source: :aspected
 
   acts_as_list scope: :aspected
 

@@ -19,6 +19,12 @@ Layout/MultilineOperationIndentation:
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
+# ActiveSupport concerns can declare a module named ClassMethods, which is
+# purely for organization and doesn't need documentation.
+Style/Documentation:
+  AllowedConstants:
+    - ClassMethods
+
 # We have to go one way or the other, and I choose double quotes. Single quotes
 # are more common in strings than double quotes.
 Style/StringLiterals:

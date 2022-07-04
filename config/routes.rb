@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   jsonapi_resources :aspects
   jsonapi_resources :characters
+  jsonapi_resources :portraits
   jsonapi_resources :skills
   jsonapi_resources :stress_boxes
   jsonapi_resources :stress_tracks

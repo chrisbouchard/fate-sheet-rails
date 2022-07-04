@@ -45,6 +45,11 @@ alice_character =
     world: test_world,
   )
 
+alice_character.portrait.attach(
+  io: File.open(Rails.root.join("assets", "alice.webp")),
+  filename: "alice.webp",
+)
+
 alice_character.aspects.create!(
   [
     { name: "Rails Application Testing Data", label: "High Concept" },
@@ -126,6 +131,11 @@ chris_character =
     skill_points: 10,
     world: test_world,
   )
+
+chris_character.portrait.attach(
+  io: File.open(Rails.root.join("assets", "chris.png")),
+  filename: "chris.png",
+)
 
 chris_character.aspects.create!(
   [
